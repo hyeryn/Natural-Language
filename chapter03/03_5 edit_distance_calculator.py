@@ -8,6 +8,7 @@ def my_edit_distance(str1, str2):
     for i in range(m): table[i,0]=i
     for j in range(n): table[0,j]=j
 
+
     for i in range(1,m):
         for j in range(1,n):
             cost = 0 if str1[i-1] == str2[j-1] else 1
