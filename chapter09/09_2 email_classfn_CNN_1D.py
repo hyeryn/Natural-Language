@@ -22,7 +22,7 @@ print(len(x_test), 'test observations')
 
 # Creating numbers to word mapping -> 해당 단어와 해당 정수 인덱스 값의 딕셔너리 매핑
 wind = imdb.get_word_index()
-revind = dict((v,k) for k,v in wind.iteritems())
+revind = dict((v,k) for k,v in wind.items()) #python3부터는 iteritems 대신 items()사용
 #영어 단어가 아닌 숫자로 결과가 보여짐
 print (x_train[0])
 print (y_train[0])
@@ -46,7 +46,7 @@ print('x_train shape:', x_train.shape)
 print('x_test shape:', x_test.shape)
 
 
-# Deep Learning architecture parameters
+# Deep Learning architecture parameters -> 케라스 코드를 적용해 CNN 1D모델을 만듦
 batch_size = 32
 embedding_dims = 60
 num_kernels = 260
@@ -74,7 +74,7 @@ model.add(Activation('sigmoid'))
 model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
 
 print (model.summary())
-
+#학습의 정확도는 올라가지만 유효성 검사의 정확도는 낮아짐 -> epochs 수 늘리는 것 보다 아키텍처 크기를 늘려야함
 model.fit(x_train, y_train,batch_size=batch_size,epochs=epochs,validation_split=0.2)
 
 
@@ -86,7 +86,7 @@ y_train_predclass.shape = y_train.shape
 y_test_predclass.shape = y_test.shape
 
 
-# Model accuracies & metrics calculation
+# Model accuracies & metrics calculation -> 과적합 발생
 print (("\n\nCNN 1D  - Train accuracy:"),(round(accuracy_score(y_train,y_train_predclass),3)))
 print ("\nCNN 1D of Training data\n",classification_report(y_train, y_train_predclass))
 print ("\nCNN 1D - Train Confusion Matrix\n\n",pd.crosstab(y_train, y_train_predclass,rownames = ["Actuall"],colnames = ["Predicted"]))
